@@ -86,9 +86,12 @@ public class AdministratorController {
 			//入力項目にエラーがあれば入力画面に遷移する
 			return "administrator/insert";
 		} 
+	public String insert(InsertAdministratorForm form) {
+		Administrator administrator = new Administrator();
 		// フォームからドメインにプロパティ値をコピー
 		BeanUtils.copyProperties(form, administrator);
 		administratorService.insert(administrator);
+		
 		return "redirect:/";
 	}
 
