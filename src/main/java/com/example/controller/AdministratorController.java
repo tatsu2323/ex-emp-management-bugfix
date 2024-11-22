@@ -75,10 +75,14 @@ public class AdministratorController {
 	 */
 	@PostMapping("/insert")
 	public String insert(@Validated InsertAdministratorForm form, BindingResult result) {
-		if(result.hasErrors()){
-			//入力画面に遷移する
+		//メールアドレスの重複があれば入力場面に遷移
+		if(form.getMailAddress() == form.getMailAddress()){
 			return "administrator/insert";
 		}
+		if(result.hasErrors()){
+			//入力項目にエラーがあれば入力画面に遷移する
+			return "administrator/insert";
+		} 
 		Administrator administrator = new Administrator();
 		// フォームからドメインにプロパティ値をコピー
 		BeanUtils.copyProperties(form, administrator);

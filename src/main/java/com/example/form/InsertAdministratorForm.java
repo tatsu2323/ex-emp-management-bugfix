@@ -18,7 +18,7 @@ public class InsertAdministratorForm {
 	@Email (message = "Email形式で入力してください")
 	private String mailAddress;
 	/** パスワード */
-	@Size(min=1, max=8, message ="パスワードは1文字以上8文字以内で入力して下さい")
+	@Size(min=8, max=16, message ="パスワードは8文字以上16文字以内で入力して下さい")
 	private String password;
 
 	public String getName() {
