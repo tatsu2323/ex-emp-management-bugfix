@@ -86,6 +86,8 @@ public class AdministratorController {
 			//入力項目にエラーがあれば入力画面に遷移する
 			return "administrator/insert";
 		} 
+		return "redirect:/";
+	}
 	public String insert(InsertAdministratorForm form) {
 		Administrator administrator = new Administrator();
 		// フォームからドメインにプロパティ値をコピー
