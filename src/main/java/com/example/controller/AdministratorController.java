@@ -1,5 +1,6 @@
 package com.example.controller;
 
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -90,8 +91,7 @@ public class AdministratorController {
 		} 
 		administrator = new Administrator();
 		BeanUtils.copyProperties(form, administrator);
-		administratorService.insert(administrator);
-		
+			administratorService.insert(administrator);
 		return "redirect:/";
 	}
 
@@ -121,6 +121,7 @@ public class AdministratorController {
 			redirectAttributes.addFlashAttribute("errorMessage", "メールアドレスまたはパスワードが不正です。");
 			return "redirect:/";
 		}
+		session.setAttribute("administratorName", administrator.getName());
 		return "redirect:/employee/showList";
 	}
 
@@ -137,5 +138,4 @@ public class AdministratorController {
 		session.invalidate();
 		return "redirect:/";
 	}
-
 }
