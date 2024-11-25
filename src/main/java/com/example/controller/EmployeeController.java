@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.domain.Employee;
 import com.example.form.UpdateEmployeeForm;
@@ -82,7 +83,7 @@ public class EmployeeController {
 	 * @return 従業員一覧画面へリダクレクト
 	 */
 	@PostMapping("/update")
-	public String update(@Validated UpdateEmployeeForm form, BindingResult result, Model model) {
+	public String update(@Validated UpdateEmployeeForm form, BindingResult result, RedirectAttributes redirectAttributes, Model model) {
 		if (result.hasErrors()) {
 			return showDetail(form.getId(), model);
 		}
