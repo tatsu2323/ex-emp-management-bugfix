@@ -76,21 +76,19 @@ public class AdministratorController {
 	 */
 	@PostMapping("/insert")
 	public String insert(@Validated InsertAdministratorForm form, BindingResult result, Model model) {
-		//メールアドレスの重複があれば入力場面に遷移
-		Administrator administrator = new Administrator();
-		administrator = administratorService.findByMailAddress(form.getMailAddress());
-		if(administrator != null ){
-			model.addAttribute("duplicationMessage", "Mailアドレスが重複しています");			
-			return "administrator/insert";
-		} else if(result.hasErrors()){
+		if(result.hasErrors()){
 			//入力項目にエラーがあれば入力画面に遷移する
 			return "administrator/insert";
 		} 
-		return "redirect:/";
-	}
-	public String insert(InsertAdministratorForm form) {
-		Administrator administrator = new Administrator();
+		
 		// フォームからドメインにプロパティ値をコピー
+		//メールアドレスの重複があれば入力場面に遷移
+		Administrator administrator = administratorService.findByMailAddress(form.getMailAddress());
+		if(administrator != null ){
+			model.addAttribute("duplicationMessage", "Mailアドレスが重複しています");			
+			return "administrator/insert";
+		} 
+		administrator = new Administrator();
 		BeanUtils.copyProperties(form, administrator);
 		administratorService.insert(administrator);
 		
