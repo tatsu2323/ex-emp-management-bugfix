@@ -3,6 +3,9 @@ package com.example.controller;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -72,6 +75,19 @@ public class AdministratorController {
 	 * @return ログイン画面へリダイレクト
 	 */
 	@PostMapping("/insert")
+	public String insert(@Validated InsertAdministratorForm form, BindingResult result, Model model) {
+		//メールアドレスの重複があれば入力場面に遷移
+		Administrator administrator = new Administrator();
+		administrator = administratorService.findByMailAddress(form.getMailAddress());
+		if(administrator != null ){
+			model.addAttribute("duplicationMessage", "Mailアドレスが重複しています");			
+			return "administrator/insert";
+		} else if(result.hasErrors()){
+			//入力項目にエラーがあれば入力画面に遷移する
+			return "administrator/insert";
+		} 
+		return "redirect:/";
+	}
 	public String insert(InsertAdministratorForm form) {
 		Administrator administrator = new Administrator();
 		// フォームからドメインにプロパティ値をコピー
