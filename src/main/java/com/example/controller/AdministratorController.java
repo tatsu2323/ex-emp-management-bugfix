@@ -80,7 +80,14 @@ public class AdministratorController {
 			//入力項目にエラーがあれば入力画面に遷移する
 			return "administrator/insert";
 		} 
-		
+
+		//パスワードの相関チェック
+		//パスワードと確認用パスワードが不一致の際は入力画面に遷移
+		if(form.getPassword() != form.getPasswordConfirmation()) {
+			model.addAttribute("errorMessage", "パスワードと確認用パスワードは一致させてください");
+			return "administrator/insert";
+		}
+
 		// フォームからドメインにプロパティ値をコピー
 		//メールアドレスの重複があれば入力場面に遷移
 		Administrator administrator = administratorService.findByMailAddress(form.getMailAddress());
