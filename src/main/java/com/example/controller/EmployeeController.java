@@ -54,16 +54,19 @@ public class EmployeeController {
 
 		 List<Employee> employeeList = null;
 
-        if("".equals(name)) {
+        if("".equals(name) || name == null) {
 		employeeList = employeeService.showList();
 		} else {
 		employeeList = employeeService.findByLikeName(name);
-		} 
 
 		if (employeeList.size() == 0) {
 			employeeList = employeeService.showList();
 			model.addAttribute("message", "1件もありませんでした");
 		} 
+
+		} 
+
+		
 		model.addAttribute("employeeList",employeeList);
 		return "employee/list";
 	}
