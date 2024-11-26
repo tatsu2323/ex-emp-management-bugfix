@@ -89,6 +89,14 @@
         </li>
       </ol>
 
+      <!-- 従業員の曖昧検索 -->
+       <form th:action="@{/employee/showList?name=} + ${employeeListName}">
+        <label for="name">従業員検索</label><br>
+        <label th:if="${message}" th:text="${message}"></label><br>
+        <input type="text" name="name" id="name">
+        <button>検索</button>
+       </form>
+
       <!-- table -->
       <div class="row">
         <div
