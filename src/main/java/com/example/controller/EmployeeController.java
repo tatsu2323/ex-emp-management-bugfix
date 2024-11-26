@@ -50,9 +50,24 @@ public class EmployeeController {
 	 * @return 従業員一覧画面
 	 */
 	@GetMapping("/showList")
-	public String showList(Model model) {
-		List<Employee> employeeList = employeeService.showList();
-		model.addAttribute("employeeList", employeeList);
+	public String showList(String name, Model model) {
+
+		 List<Employee> employeeList = null;
+
+        if("".equals(name) || name == null) {
+		employeeList = employeeService.showList();
+		} else {
+		employeeList = employeeService.findByLikeName(name);
+
+		if (employeeList.size() == 0) {
+			employeeList = employeeService.showList();
+			model.addAttribute("message", "1件もありませんでした");
+		} 
+
+		} 
+
+		
+		model.addAttribute("employeeList",employeeList);
 		return "employee/list";
 	}
 
@@ -63,6 +78,7 @@ public class EmployeeController {
 	 * 従業員詳細画面を出力します.
 	 * 
 	 * @param id    リクエストパラメータで送られてくる従業員ID
+	 * @param name
 	 * @param model モデル
 	 * @return 従業員詳細画面
 	 */
