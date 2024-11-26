@@ -84,7 +84,9 @@ public class AdministratorController {
 
 		//パスワードの相関チェック
 		//パスワードと確認用パスワードが不一致の際は入力画面に遷移
+
 		if(!(form.getPassword().equals(form.getPasswordConfirmation()))) {
+
 			model.addAttribute("errorMessage", "パスワードと確認用パスワードは一致させてください");
 			return "administrator/insert";
 		}
